@@ -1,10 +1,20 @@
 import { TodoType } from "@/pages";
 import React, { useState } from "react";
-import { Card, Box, Button, Stack, Typography, Grid } from "@mui/material";
+import {
+  Link,
+  Card,
+  Box,
+  Button,
+  Stack,
+  Typography,
+  Grid,
+} from "@mui/material";
 import { format } from "date-fns";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+
 const TodoCard: React.FunctionComponent<{
   fetchData: () => void;
   todo: TodoType;
@@ -24,6 +34,14 @@ const TodoCard: React.FunctionComponent<{
     fetchData();
   };
   const handleDelete = async () => {
+    const response = await fetch(`/api/todos/delete/${todo._id}`, {
+      method: "DELETE",
+    });
+    const dataResponse = await response.json();
+    console.log(dataResponse);
+    fetchData();
+  };
+  const handleEdit = async () => {
     const response = await fetch(`/api/todos/delete/${todo._id}`, {
       method: "DELETE",
     });
@@ -69,6 +87,11 @@ const TodoCard: React.FunctionComponent<{
         <Button variant="outlined" onClick={handleDelete}>
           Delete {<DeleteIcon />}
         </Button>
+        <Link href="/edit">
+          {/* <Button variant="outlined" onClick={handleEdit}>
+            Edit {<EditIcon />}
+          </Button> */}
+        </Link>
       </CardActions>
     </Card>
   );

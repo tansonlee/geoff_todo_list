@@ -50,6 +50,7 @@ export default function Home() {
         .sort((todo1, todo2) => {
           return boolToInt(todo1.is_complete) - boolToInt(todo2.is_complete);
         })
+
         .map((todo) => (
           <TodoCard key={todo._id} todo={todo} fetchData={fetchData} />
         ))}
